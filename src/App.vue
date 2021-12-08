@@ -16,6 +16,11 @@
           small {{ searchMessage }}
 
       .container
+        button(@click='addProp') Add prop
+
+        p {{ person }}
+
+      .container
         .rows
           .row(v-for="p in pokemons")
             | {{ `${p.name}` }}
@@ -36,7 +41,10 @@ export default {
   data () {
     return {
       searchQuery: '',
-      pokemons: []
+      pokemons: [],
+      person: {
+        name: 'victor'
+      }
     }
   },
   computed: {
@@ -54,6 +62,11 @@ export default {
           console.log(res)
           this.pokemons = res
         })
+    },
+    addProp () {
+      // this.person.lastName = 'Canete'
+      // this.$set(this.person, 'lastName', 'Canete')
+      this.person = Object.assign({}, this.person, { a: 1, b: 2 })
     }
   }
 }
