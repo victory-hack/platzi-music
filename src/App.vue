@@ -10,38 +10,41 @@
           )
           a.button.is-info.is-large(@click="search") Buscar
           a.button.is-danger.is-large &times;
-          div
-            small {{ searchMessage }}
+      .container
+        div
+          small {{ searchMessage }}
 
       .container
-        .columns
-          .column(v-for="t in tracks") {{ `${t.name} - ${t.artista}` }}
+        .rows
+          .row(v-for="p in pokemons")
+            | {{ `${p.name}` }}
 </template>
 
 <script>
-const tracks = [
-  { name: 'Muchacha', artista: 'Luis Alberto Spinetta' },
-  { name: 'Hoy aca en el baile', artista: 'El pepo' },
-  { name: 'I was made for loving you', artista: 'Kiss' }
-]
+import trackService from './services/track'
 export default {
   name: 'app',
   data () {
     return {
       searchQuery: '',
-      tracks: []
+      pokemons: []
     }
   },
   computed: {
     searchMessage () {
-      return `Encontrados: ${this.tracks.length}`
+      return `Encontrados: ${this.pokemons.length}`
     }
   },
   watch: {
   },
   methods: {
     search () {
-      this.tracks = tracks
+      if (!this.searchQuery) { return }
+      trackService.search(this.searchQuery)
+        .then(res => {
+          console.log(res)
+          this.pokemons = res
+        })
     }
   }
 }
