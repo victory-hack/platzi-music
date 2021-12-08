@@ -1,36 +1,47 @@
 <template lang="pug">
   #app
-    input(v-model="name")
-    input(v-model="lastName")
-    h1 {{ fullName }}
-    button(v-on:click="format") Format
+    section.section
+      nav.nav.has-shadow
+        .container
+          input.input.is-large(
+            type="text",
+            placeholder="Buscar canciones",
+            v-model="searchQuery"
+          )
+          a.button.is-info.is-large(@click="search") Buscar
+          a.button.is-danger.is-large &times;
+          div
+            small {{ searchMessage }}
 
-    h1 {{ formatName }}
+      .container
+        .columns
+          .column(v-for="t in tracks") {{ `${t.name} - ${t.artista}` }}
 </template>
 
 <script>
+const tracks = [
+  { name: 'Muchacha', artista: 'Luis Alberto Spinetta' },
+  { name: 'Hoy aca en el baile', artista: 'El pepo' },
+  { name: 'I was made for loving you', artista: 'Kiss' }
+]
 export default {
   name: 'app',
   data () {
     return {
-      name: '',
-      lastName: '',
-      formatName: ''
+      searchQuery: '',
+      tracks: []
     }
   },
   computed: {
-    fullName () {
-      return `${this.name} ${this.lastName}`
+    searchMessage () {
+      return `Encontrados: ${this.tracks.length}`
     }
   },
   watch: {
-    name (newVal, oldVal) {
-      console.log(newVal, oldVal)
-    }
   },
   methods: {
-    format () {
-      this.formatName = this.name.split(' ').join('-').toUpperCase()
+    search () {
+      this.tracks = tracks
     }
   }
 }
