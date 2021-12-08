@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    child
     section.section
       nav.nav.has-shadow
         .container
