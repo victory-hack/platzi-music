@@ -25,6 +25,7 @@
           .row(v-for="p in pokemons")
             | {{ `${p.name}` }}
 
+    vc-life-cycle
     pm-footer
 </template>
 
@@ -32,11 +33,13 @@
 import trackService from './services/track'
 import PmFooter from './components/layout/Footer.vue'
 import PmHeader from './components/layout/Header.vue'
+import VcLifeCycle from './components/Lessons/LifeCycle.vue'
 export default {
   name: 'app',
   components: {
     PmFooter,
-    PmHeader
+    PmHeader,
+    VcLifeCycle
   },
   data () {
     return {
