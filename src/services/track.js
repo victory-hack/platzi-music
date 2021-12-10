@@ -1,4 +1,5 @@
 import platziMusicService from './platzi-music'
+import trae from 'trae'
 
 const trackService = {}
 
@@ -9,8 +10,17 @@ trackService.search = function (q) {
     params: { q, type }
   })
     .then(res => {
-      console.log(res)
       return res.data.results
+    })
+}
+
+trackService.findById = function (q) {
+  return trae.get(q)
+    .then((response) => {
+      return response.data
+    })
+    .catch((err) => {
+      console.error(err)
     })
 }
 
